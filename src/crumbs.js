@@ -23,7 +23,6 @@ const crumbs = function() {
                     });
                     return succeeded_set_cookies;
                 }
-                else {
                     var cookie_expires = "",
                     cookie_domain = "path=/;";
                     if (expires != undefined) {
@@ -35,7 +34,6 @@ const crumbs = function() {
                     cookie_domain = domain != undefined ? `path=${domain};` : domain;
                     document.cookie =  `${name}=${value};${cookie_expires};${cookie_domain}`;
                     return true;
-                }
             }
             catch (e) {
                 this.throwError(`An error has occurd: ${e}`);
@@ -76,8 +74,22 @@ const crumbs = function() {
         },
         delete : function(name) {
             // Deletes a cookie by its name
-            document.cookie = `${name}=''; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-            return true;
+            try {
+                if (Array.isArray(name)) {
+                    // If name is an array, support mass delete of cookies
+                    var mass_set_cookies_array = name;
+                    // Name change for comfort purposes
+                    mass_set_cookies_array.forEach((v)=> {
+                        this.delete(v);
+                    });
+                    return true;
+                }
+                    document.cookie = `${name}=''; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+                    return true;
+            }
+            catch (e) {
+                this.throwError(`An error has occurd: ${e}`);
+            }            
         }
     }
 }();
