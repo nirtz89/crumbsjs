@@ -23,7 +23,6 @@
     "globule": "^0.1.0",
     "glogg": "^1.0.1",
     "graceful-fs": "^3.0.11",
-    "gulp": "^3.9.1",
     "gulplog": "^1.0.0",
     "has-gulplog": "^0.1.0",
     "has-value": "^1.0.0",
@@ -127,7 +126,10 @@
     "use": "^3.1.1",
     "vinyl": "^0.5.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-minify": "^3.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
