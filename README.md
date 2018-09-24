@@ -1,4 +1,4 @@
-## CrumbsJS 🍪
+## 🍪 CrumbsJS
 
 A lightweight, intuitive, Vanilla ES6 fueled JS cookie library.
 
