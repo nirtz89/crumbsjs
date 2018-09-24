@@ -3,18 +3,21 @@ let crumbs = function() {
             set : function(name,value,expires,domain) {
             try {
                 var cookie_expires = "",
-                    cookie_domain = "";
+                    cookie_domain = "path=/;";
                 if (expires != undefined) {
-                    cookie_expires = new Date();
-                    cookie_expires = `expires=${cookie_expires.setTime(cookie_expires.getTime()+(expires*24*60*60*1000))};`;
+                    debugger;
+                    var d = new Date();
+                    d.setTime(d.getTime()+(expires*24*60*60*1000));
+                    d.toUTCString();
+                    cookie_expires = `expires=${d};`;
                 }
-                if (domain != undefined) {
-                    
-                }
-                document.cookie =  `${name}=${value};${cookie_expires}`;
+                cookie_domain = domain != undefined ? `path=${domain};` : domain;
+                document.cookie =  `${name}=${value};${cookie_expires};${cookie_domain}`;
+                return true;
             }
             catch (e) {
-                console.log(e);
+                console.log(`An error has occurd: ${e}`);
+                return false;
             }
         }
     }
