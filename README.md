@@ -28,6 +28,20 @@ let age = crumbs.get("Age");
 let all_cookies = crumbs.getAll();
 ```
 
+### Delete a single cookie
+```javascript
+crumbs.delete("Operating system");
+```
+
+### Delete a few cookies at once
+```javascript
+let my_cookies = [];
+my_cookies.push("Operating system");
+my_cookies.push("Age");
+
+crumbs.delete(my_cookies);
+```
+
 ## Features
 
 * Add one or multiple cookies at once
