@@ -37,31 +37,6 @@ let all_cookies = crumbs.getAll();
 * Display all cookies in a key-value easy to read object
 
 
-### Converter
-To Convert markdown to html, Markdown-Edit Use [Github's API](http://developer.github.com/v3/markdown/#render-a-markdown-document-in-raw-mode) as default.<br>
-For more infomation, See official Guide
-* [GitHub API v3](http://developer.github.com/v3/markdown/)
-* [github-flavored-markdown](http://github.github.com/github-flavored-markdown/)
-
-*NOTICE* : [GitHub API v3](http://developer.github.com/v3/#rate-limiting) is limited 5000requests per hour.
-
-#### Option: Use [marked](https://github.com/chjj/marked) as conveter.
-If you checked radio `Use marked for conveter` **markdown-edit** use [marked](https://github.com/chjj/marked)
-and [highlight.js](http://softwaremaniacs.org/soft/highlight/en/) instad of Github's API.
-It is faster than API call and make you enable to use this app at offline.
-
-*NOTICE* : [marked](https://github.com/chjj/marked) does not support Anchor.
-
-### Viewer
-To display converted HTML like Github, Markdown-Edit apply github.css from highlight.js and github-style.css inspired by [gollum](https://github.com/gollum/gollum/blob/master/lib/gollum/public/gollum/css/template.css).
-
-```html
-<link rel="stylesheet" href="bower_components/highlightjs/styles/github.css">
-<link rel="stylesheet" href="css/github-style.css">
-```
-
-If you want to see raw html what [Github's API](http://developer.github.com/v3/markdown/#render-a-markdown-document-in-raw-mode) responsed, click `Raw .html` button on navbar.
-
 ## Getting Started
 
 ### Install On your local PC
