@@ -1,6 +1,9 @@
 let crumbs = function() {
         return {
             set : function(name,value,expires,domain) {
+                // Set a cookie, expires and domain are optional parameters
+                // Expires on default when browser closes
+                // Domain on default is set to "/"
             try {
                 var cookie_expires = "",
                     cookie_domain = "path=/;";
@@ -18,6 +21,15 @@ let crumbs = function() {
             catch (e) {
                 console.log(`An error has occurd: ${e}`);
                 return false;
+            }
+        },
+        get : function(name) {
+            // Gets a cookie, if no such cookie exists - returns false
+            try {
+                
+            }
+            catch (e) {
+
             }
         }
     }
