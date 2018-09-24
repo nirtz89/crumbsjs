@@ -8,7 +8,6 @@ let crumbs = function() {
                 var cookie_expires = "",
                     cookie_domain = "path=/;";
                 if (expires != undefined) {
-                    debugger;
                     var d = new Date();
                     d.setTime(d.getTime()+(expires*24*60*60*1000));
                     d.toUTCString();
@@ -24,12 +23,35 @@ let crumbs = function() {
             }
         },
         get : function(name) {
-            // Gets a cookie, if no such cookie exists - returns false
+            // Get a specifc cookie by name, if no cookie was found, returns false
             try {
-                
+                var all_cookies = decodeURIComponent(document.cookie);
+                all_cookies = all_cookies.split("; ");
+                var returned_cookie = all_cookies.filter((c)=>{
+                    var c = c.split("=");
+                    return c[0]===name ? 1 : 0;
+                });
+                return returned_cookie.length>0 ? returned_cookie[0].split("=")[1] : false;
             }
             catch (e) {
-
+                console.log(`An error has occurd: ${e}`);
+                return false;
+            }
+        },
+        getAll : function() {
+            // Get all cookies in a key-pair object
+            try {
+                 var all_cookies = decodeURIComponent(document.cookie);
+                 all_cookies = all_cookies.split("; ");
+                 var all_cookies_kv = all_cookies.map((c)=>{
+                     var c = c.split("=");
+                     return {"name":c[0],"value":c[1]}
+                 });
+                 return all_cookies_kv;
+            }
+            catch (e) {
+                console.log(`An error has occurd: ${e}`);
+                return false;
             }
         }
     }
