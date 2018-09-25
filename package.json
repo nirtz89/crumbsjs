@@ -34,13 +34,14 @@
     "is-glob": "^3.1.0",
     "is-number": "^3.0.0",
     "is-plain-object": "^2.0.4",
-    "is-unc-path": "^1.0.0",
     "is-relative": "^1.0.0",
+    "is-unc-path": "^1.0.0",
     "is-utf8": "^0.2.1",
     "is-windows": "^1.0.2",
     "isarray": "^0.0.1",
     "isexe": "^2.0.0",
     "isobject": "^3.0.1",
+    "jest": "^23.6.0",
     "kind-of": "^6.0.2",
     "lodash": "^1.0.2",
     "lodash._basecopy": "^3.0.1",
@@ -128,10 +129,11 @@
   },
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
     "gulp-minify": "^3.1.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
