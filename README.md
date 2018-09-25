@@ -12,10 +12,10 @@ crumbs.set("Operating System","Win10"); // => true
 ### Adding a few cookies at once
 ```javascript
 let my_cookies = [];
-my_cookies.push({"name":"Opearting System","value":"Win10"});
+my_cookies.push({"name":"Operating System","value":"Win10"});
 my_cookies.push({"name":"Age","value":"29"});
 
-crumbs.set(my_cookies); // => [true,true]
+crumbs.set(my_cookies); // => [{"name":"Operating System","value":"Win10"},{"name":"Age","value":"29"}]
 ```
 
 ### Get a cookie value
