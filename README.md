@@ -6,7 +6,7 @@ A lightweight, intuitive, Vanilla ES6 fueled JS cookie library.
 
 ### Adding a single cookie
 ```javascript
-crumbs.set("Operating System","Win10");
+crumbs.set("Operating System","Win10"); // => true
 ```
 
 ### Adding a few cookies at once
@@ -15,22 +15,22 @@ let my_cookies = [];
 my_cookies.push({"name":"Opearting System","value":"Win10"});
 my_cookies.push({"name":"Age","value":"29"});
 
-crumbs.set(my_cookies);
+crumbs.set(my_cookies); // => [true,true]
 ```
 
 ### Get a cookie value
 ```javascript
-let age = crumbs.get("Age");
+let age = crumbs.get("Age"); // => 29
 ```
 
 ### Get all cookies in a key-value pair object
 ```javascript
-let all_cookies = crumbs.getAll();
+let all_cookies = crumbs.getAll(); // => [{name:"Operating System",value:"Win10"},{name:"Age",value:29}]
 ```
 
 ### Delete a single cookie
 ```javascript
-crumbs.delete("Operating system");
+crumbs.delete("Operating system"); // => true
 ```
 
 ### Delete a few cookies at once
@@ -39,7 +39,7 @@ let my_cookies = [];
 my_cookies.push("Operating system");
 my_cookies.push("Age");
 
-crumbs.delete(my_cookies);
+crumbs.delete(my_cookies); // => true
 ```
 
 ## Features
