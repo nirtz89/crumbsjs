@@ -19,9 +19,9 @@ const crumbs = function() {
                             throw "Mass cookie set did not work, on or more object properties are wrong.";
                     });
                     var succeeded_set_cookies = mass_set_cookies_array.map((c)=>{
-                        return this.set(c.name,c.value) ? c : false;
+                        return this.set(c.name,c.value,c.expires,c.domain) ? c : false;
                     });
-                    return succeeded_set_cookies;
+                    return succeeded_set_cookies.filter((x) => { return x;});
                 }
                     var cookie_expires = "",
                     cookie_domain = "path=/;";
