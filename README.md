@@ -1,6 +1,6 @@
 ## 🍪 CrumbsJS 🍪
 
-A lightweight, intuitive, Vanilla ES6 fueled JS cookie library.
+A lightweight, intuitive, vanilla ES6 fueled JS cookie library.
 
 ## Quick Start
 
