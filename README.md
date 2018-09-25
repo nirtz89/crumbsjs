@@ -20,12 +20,12 @@ crumbs.set(my_cookies); // => [{"name":"Operating System","value":"Win10"},{"nam
 
 ### Get a cookie value
 ```javascript
-let age = crumbs.get("Age"); // => 29
+let age = crumbs.get("Age"); // => "29"
 ```
 
 ### Get all cookies in a key-value pair object
 ```javascript
-let all_cookies = crumbs.getAll(); // => [{name:"Operating System",value:"Win10"},{name:"Age",value:29}]
+let all_cookies = crumbs.getAll(); // => [{name:"Operating System",value:"Win10"},{name:"Age",value:"29"}]
 ```
 
 ### Delete a single cookie
