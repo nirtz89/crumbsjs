@@ -27,7 +27,31 @@ const crumbs = function() {
                     cookie_domain = "path=/;";
                     if (expires != undefined) {
                         var d = new Date();
-                        d.setTime(d.getTime()+(expires*24*60*60*1000));
+                        var time = 1000*60*60*24;;
+                        if (typeof expires == "object") {
+                            switch (expires.type.toLowerCase()) {
+                                case "minute":
+                                    time = 1000*60;
+                                break;
+                                case "hour":
+                                    time = 1000*60*60;
+                                break;
+                                case "day":
+                                    time = 1000*60*60*24;
+                                break;
+                                case "week":
+                                    time = 1000*60*60*24*7;
+                                break;
+                                case "month":
+                                    time = 1000*60*60*24*7*4;
+                                break;
+                                default: 
+                                    throw('Not a valid time type format (use minute, hour, day, week or month only)')
+                                break;
+                            }
+                            expires = expires.value;
+                        }
+                        d.setTime(d.getTime()+(expires*time));
                         d.toUTCString();
                         cookie_expires = `expires=${d};`;
                     }
@@ -61,11 +85,10 @@ const crumbs = function() {
             try {
                  var all_cookies = decodeURIComponent(document.cookie);
                  all_cookies = all_cookies.split("; ");
-                 var all_cookies_kv = all_cookies.map((c)=>{
+                 return all_cookies[0] ? all_cookies.map((c)=>{
                      var c = c.split("=");
-                     return {"name":c[0],"value":c[1]}
-                 });
-                 return all_cookies_kv;
+                     return {"name":c[0],"value":c[1]};
+                 }) : false;
             }
             catch (e) {
                 this.throwError(`An error has occurd: ${e}`);
