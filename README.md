@@ -9,6 +9,11 @@ A lightweight, intuitive, vanilla ES6 fueled JS cookie library.
 crumbs.set("Operating System","Win10"); // => true
 ```
 
+### Adding a single cookie that will expire in 7 days for a specific path
+```javascript
+crumbs.set("Name","Roy Azaeev",7,"/crumbsjs"); // => true
+```
+
 ### Adding a few cookies at once
 ```javascript
 let my_cookies = [];
@@ -49,6 +54,34 @@ crumbs.delete(my_cookies); // => true
 * Delete one or multiple cookies at once
 * Display a cookie value
 * Display all cookies in a key-value easy to read object
+
+
+## Methods
+
+### set(name, value, [expires], [domain])
+Sets one or more cookies.
+> name can be set as an array of key-pair objects in the format of {name:"Age",value:29} for mass cookie set
+
+---
+
+### get(name)
+Gets a cookie value by its name.
+
+---
+
+### getAll()
+Gets all the cookies in a key-pair object array.
+
+---
+
+### delete(name)
+Deletes a cookie by its name.
+
+> name can be set as an array of strings for mass delete of cookies
+---
+
+### deleteAll()
+Deletes all cookies.
 
 
 ## Getting Started
