@@ -61,11 +61,10 @@ const crumbs = function() {
             try {
                  var all_cookies = decodeURIComponent(document.cookie);
                  all_cookies = all_cookies.split("; ");
-                 var all_cookies_kv = all_cookies.map((c)=>{
+                 return all_cookies[0] ? all_cookies.map((c)=>{
                      var c = c.split("=");
-                     return {"name":c[0],"value":c[1]}
-                 });
-                 return all_cookies_kv;
+                     return {"name":c[0],"value":c[1]};
+                 }) : false;
             }
             catch (e) {
                 this.throwError(`An error has occurd: ${e}`);
@@ -90,6 +89,21 @@ const crumbs = function() {
             catch (e) {
                 this.throwError(`An error has occurd: ${e}`);
             }            
+        },
+        deleteAll : function() {
+            // Deletes all cookies
+            try {
+                var all_cookies = decodeURIComponent(document.cookie);
+                all_cookies = all_cookies.split("; ")
+                .map((c)=>{
+                    var c = c.split("=");
+                    return this.delete(c[0]);
+                });                
+                return true;
+            }
+            catch (e) {
+                this.throwError(`An error has occurd: ${e}`);
+            }
         }
     }
 }();

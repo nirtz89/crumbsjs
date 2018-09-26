@@ -90,6 +90,21 @@ const crumbs = function() {
             catch (e) {
                 this.throwError(`An error has occurd: ${e}`);
             }            
+        },
+        deleteAll : function() {
+            // Deletes all cookies
+            try {
+                var all_cookies = decodeURIComponent(document.cookie);
+                all_cookies = all_cookies.split("; ")
+                .map((c)=>{
+                    var c = c.split("=");
+                    return this.delete(c[0]);
+                });                
+                return true;
+            }
+            catch (e) {
+                this.throwError(`An error has occurd: ${e}`);
+            }
         }
     }
 }();

@@ -61,11 +61,10 @@ const crumbs = function() {
             try {
                  var all_cookies = decodeURIComponent(document.cookie);
                  all_cookies = all_cookies.split("; ");
-                 var all_cookies_kv = all_cookies.map((c)=>{
+                 return all_cookies[0] ? all_cookies.map((c)=>{
                      var c = c.split("=");
-                     return {"name":c[0],"value":c[1]}
-                 });
-                 return all_cookies_kv;
+                     return {"name":c[0],"value":c[1]};
+                 }) : false;
             }
             catch (e) {
                 this.throwError(`An error has occurd: ${e}`);
@@ -90,12 +89,65 @@ const crumbs = function() {
             catch (e) {
                 this.throwError(`An error has occurd: ${e}`);
             }            
+        },
+        deleteAll : function() {
+            // Deletes all cookies
+            try {
+                var all_cookies = decodeURIComponent(document.cookie);
+                all_cookies = all_cookies.split("; ")
+                .map((c)=>{
+                    var c = c.split("=");
+                    return this.delete(c[0]);
+                });                
+                return true;
+            }
+            catch (e) {
+                this.throwError(`An error has occurd: ${e}`);
+            }
         }
     }
 }();
 
-test('Create Cookies', () => {
+test('Create a few cookies', () => {
     crumbs.set("name","Nir");
     crumbs.set("lname","Tzezana");
     expect(crumbs.getAll()).toHaveLength(2);
 });
+
+test('Create a single cookie', () => {
+    crumbs.set("name","Nir");
+    expect(crumbs.get("name")).toBe("Nir");
+});
+
+test('Delete a single cookie', () => {
+    crumbs.set("name","Nir");
+    crumbs.delete("name");
+    expect(crumbs.get("name")).toBeFalsy;
+})
+
+test('Delete multiple cookies', () => {
+    crumbs.set("name","Nir");
+    crumbs.set("age",29);
+    crumbs.delete(["name","age"]);
+    expect(crumbs.getAll()).toBeFalsy;
+})
+
+test('Delete all cookies', () => {
+    let my_cookies = [];
+    my_cookies.push({"name":"Operating System","value":"Win10"});
+    my_cookies.push({"name":"Age","value":"29"});
+
+    crumbs.set(my_cookies);
+    crumbs.deleteAll();
+    expect(crumbs.getAll()).toBeFalsy;
+})
+
+test('Create a few cookies from object', () => {
+    crumbs.deleteAll();
+    let my_cookies = [];
+    my_cookies.push({"name":"Operating System","value":"Win10"});
+    my_cookies.push({"name":"Age","value":"29"});
+
+    crumbs.set(my_cookies);
+    expect(crumbs.getAll()).toHaveLength(2);
+})
