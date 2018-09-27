@@ -91,6 +91,12 @@ Deletes all cookies.
 
 #### Download Sources
 
+use npm
+
+```bash
+npm install crumbsjs
+```
+
 use git
 
 ```bash
