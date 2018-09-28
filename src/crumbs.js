@@ -1,3 +1,9 @@
+/*!
+ * CrumbsJS v0.0.2
+ * https://github.com/nirtz89/crumbsjs
+ *
+ * Copyright 2018, Nir Tzezana
+ */
 const crumbs = function() {
         return {
             throwError : function(err) {
@@ -16,7 +22,7 @@ const crumbs = function() {
                     mass_set_cookies_array.forEach((v)=> {
                         // Check to see correct setting format on all cookies with mass set
                         if (!v.hasOwnProperty("name") || !v.hasOwnProperty("value"))
-                            throw "Mass cookie set did not work, on or more object properties are wrong.";
+                            throw "Mass cookie set failed, on or more object properties are wrong.";
                     });
                     var succeeded_set_cookies = mass_set_cookies_array.map((c)=>{
                         return this.set(c.name,c.value,c.expires,c.domain) ? c : false;
@@ -60,7 +66,7 @@ const crumbs = function() {
                     return true;
             }
             catch (e) {
-                this.throwError(`An error has occurd: ${e}`);
+                this.throwError(`An error has occurred: ${e}`);
                 return false;
             }
         },
@@ -76,7 +82,7 @@ const crumbs = function() {
                 return returned_cookie.length>0 ? returned_cookie[0].split("=")[1] : false;
             }
             catch (e) {
-                this.throwError(`An error has occurd: ${e}`);
+                this.throwError(`An error has occurred: ${e}`);
                 return false;
             }
         },
@@ -91,7 +97,7 @@ const crumbs = function() {
                  }) : false;
             }
             catch (e) {
-                this.throwError(`An error has occurd: ${e}`);
+                this.throwError(`An error has occurred: ${e}`);
                 return false;
             }
         },
@@ -111,7 +117,7 @@ const crumbs = function() {
                     return true;
             }
             catch (e) {
-                this.throwError(`An error has occurd: ${e}`);
+                this.throwError(`An error has occurred: ${e}`);
             }            
         },
         deleteAll : function() {
@@ -126,7 +132,30 @@ const crumbs = function() {
                 return true;
             }
             catch (e) {
-                this.throwError(`An error has occurd: ${e}`);
+                this.throwError(`An error has occurred: ${e}`);
+            }
+        },
+        ls: {
+            // Local storage portion of the plugin
+            throwError : (e) => {
+                // Refer back to the original throwError function, DRY
+                crumbs.throwError(e)
+            },
+            ls : window.localStorage,
+            // Shorter name, just for ease of use
+            set : function(key, value) {
+                // Set a key-pair value to the local storage
+                try {
+                    if (Array.isArray(key)) {
+                        // If key is an array, support mass set of local storage values
+                        
+                    }
+                    this.ls.setItem(key,value);
+                    return true;
+                }
+                catch (e) {
+                    this.throwError(`An error has occurred: ${e}`);
+                }
             }
         }
     }
