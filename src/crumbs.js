@@ -180,8 +180,29 @@ const crumbs = function() {
                     return false;
                 }
             },
-            getAll : function() {
-
+            getAll : function(asJSON = true) {
+                try {
+                    let return_array = [];
+                    for (let idx in this.ls) {
+                        if (idx=="key" || idx=="getItem" || idx=="setItem" || idx=="removeItem" || idx=="clear" || idx=="length") continue;
+                        return_array.push({"key":idx,"value":asJSON ? JSON.parse(this.ls[idx]) : this.ls[idx]});
+                    }
+                    return return_array;
+                }
+                catch (e) {
+                    this.throwError(`An error has occurred: ${e}`);
+                    return false;
+                }
+            },
+            deleteAll : function() {
+                try {
+                    this.ls.clear();
+                    return true;
+                }
+                catch (e) {
+                    this.throwError(`An error has occurred: ${e}`);
+                    return false;
+                }
             }
         }
     }
