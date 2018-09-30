@@ -194,6 +194,16 @@ const crumbs = function() {
                     return false;
                 }
             },
+            delete : function(key) {
+                try {
+                    this.ls.removeItem(key);
+                    return true;
+                }
+                catch (e) {
+                    this.throwError(`An error has occurred: ${e}`);
+                    return false;
+                }
+            },
             deleteAll : function() {
                 try {
                     this.ls.clear();
