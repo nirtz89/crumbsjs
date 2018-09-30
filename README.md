@@ -1,12 +1,16 @@
 ## 🍪 CrumbsJS 🍪
 
-A lightweight, intuitive, vanilla ES6 fueled JS cookie library.
+A lightweight, intuitive, vanilla ES6 fueled JS cookie and **local storage** library.
 
 ## Quick Start
 
-### Adding a single cookie
+### Adding a single cookie or a local storage key
 ```javascript
+// Cookie
 crumbs.set("Operating System","Win10"); // => true
+
+// Local storage key
+crumbs.ls.set("Operating System","Win10") // => true
 ```
 
 ### Adding a single cookie that will expire in 7 days for a specific path
@@ -18,25 +22,46 @@ crumbs.set("Name","Roy Azaeev",{type:"days",value:7},"/crumbsjs"); // => true
 ### Adding a few cookies at once
 ```javascript
 let my_cookies = [];
-my_cookies.push({"name":"Operating System","value":"Win10"});
-my_cookies.push({"name":"Age","value":"29"});
+my_cookies.push({name:"Operating System",value:"Win10"});
+my_cookies.push({name:"Age",value:"29"});
 
-crumbs.set(my_cookies); // => [{"name":"Operating System","value":"Win10"},{"name":"Age","value":"29"}]
+crumbs.set(my_cookies); // => [{name:"Operating System",value:"Win10"},{name:"Age",value:"29"}]
 ```
 
-### Get a cookie value
+### Adding a few local storage keys at once
 ```javascript
+let my_localstorage_array = [];
+my_localstorage_array.push({"key":"Operating System","value":"Win10"});
+my_localstorage_array.push({"key":"Age","value":"29"});
+
+crumbs.set(my_localstorage_array); // => [{key:"Operating System",value:"Win10"},{key:"Age",value:"29"}]
+```
+
+### Get a cookie or a local storage key value
+```javascript
+// Cookie
 let age = crumbs.get("Age"); // => "29"
+
+// Local storage
+let age = crumbs.ls.get("Age"); // => "29"
 ```
 
-### Get all cookies in a key-value pair object
+### Get all cookies or all local storage keys in a key-value pair object
 ```javascript
+// Cookies
 let all_cookies = crumbs.getAll(); // => [{name:"Operating System",value:"Win10"},{name:"Age",value:"29"}]
+
+// Local storage
+let all_localstorage = crumbs.ls.getAll(); // => [{key:"Operating System",value:"Win10"},{key:"Age",value:"29"}]
 ```
 
-### Delete a single cookie
+### Delete a single cookie or local storage key
 ```javascript
+// Cookie
 crumbs.delete("Operating system"); // => true
+
+// Local storage
+crumbs.ls.delete("Operating system"); // => true
 ```
 
 ### Delete a few cookies at once
@@ -50,11 +75,14 @@ crumbs.delete(my_cookies); // => true
 
 ## Features
 
-* Add one or multiple cookies at once
-* Update cookies using the `set` method
+* **NO DEPENDENCIES** - Yup, no jQuery.
+* Tested, using Jest.
+* Add one or multiple cookies or local storage keys at once
+* Update cookies or local storage keys using the `set` method
 * Delete one or multiple cookies at once
-* Display a cookie value
-* Display all cookies in a key-value easy to read object
+* Delete local storage keys easily
+* Display a cookie or a local storage key value
+* Display all cookies or local storage keys in a key-value easy to read object
 
 
 ## Methods
