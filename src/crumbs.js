@@ -1,3 +1,9 @@
+/*!
+ * CrumbsJS v0.0.2
+ * https://github.com/nirtz89/crumbsjs
+ *
+ * Copyright 2018, Nir Tzezana
+ */
 const crumbs = function() {
         return {
             throwError : function(err) {
@@ -16,7 +22,7 @@ const crumbs = function() {
                     mass_set_cookies_array.forEach((v)=> {
                         // Check to see correct setting format on all cookies with mass set
                         if (!v.hasOwnProperty("name") || !v.hasOwnProperty("value"))
-                            throw "Mass cookie set did not work, on or more object properties are wrong.";
+                            throw "Mass cookie set failed, on or more object properties are incorrect.";
                     });
                     var succeeded_set_cookies = mass_set_cookies_array.map((c)=>{
                         return this.set(c.name,c.value,c.expires,c.domain) ? c : false;
@@ -60,7 +66,7 @@ const crumbs = function() {
                     return true;
             }
             catch (e) {
-                this.throwError(`An error has occurd: ${e}`);
+                this.throwError(`An error has occurred: ${e}`);
                 return false;
             }
         },
@@ -76,7 +82,7 @@ const crumbs = function() {
                 return returned_cookie.length>0 ? returned_cookie[0].split("=")[1] : false;
             }
             catch (e) {
-                this.throwError(`An error has occurd: ${e}`);
+                this.throwError(`An error has occurred: ${e}`);
                 return false;
             }
         },
@@ -91,7 +97,7 @@ const crumbs = function() {
                  }) : false;
             }
             catch (e) {
-                this.throwError(`An error has occurd: ${e}`);
+                this.throwError(`An error has occurred: ${e}`);
                 return false;
             }
         },
@@ -111,7 +117,7 @@ const crumbs = function() {
                     return true;
             }
             catch (e) {
-                this.throwError(`An error has occurd: ${e}`);
+                this.throwError(`An error has occurred: ${e}`);
             }            
         },
         deleteAll : function() {
@@ -126,7 +132,77 @@ const crumbs = function() {
                 return true;
             }
             catch (e) {
-                this.throwError(`An error has occurd: ${e}`);
+                this.throwError(`An error has occurred: ${e}`);
+            }
+        },
+        ls: {
+            // Local storage portion of the plugin
+            throwError : (e) => {
+                // Refer back to the original throwError function, DRY
+                crumbs.throwError(e)
+            },
+            ls : window.localStorage,
+            // Shorter name, just for ease of use
+            set : function(key, value) {
+                // Set a key-value pair to the local storage
+                try {
+                    if (Array.isArray(key)) {
+                        // If key is an array, support mass set of local storage values
+                        key.forEach((v)=>{
+                            if (!v.hasOwnProperty("key") || !v.hasOwnProperty("value"))
+                            throw "Mass key-value pair set failed, on or more object properties are incorrect.";
+                        });
+                        return key.map((v)=>{
+                            this.set(v.key,v.value);
+                        }).filter((x)=>x);
+                    }
+                    this.ls.setItem(key,JSON.stringify(value));
+                    return true;
+                }
+                catch (e) {
+                    this.throwError(`An error has occurred: ${e}`);
+                    return false;
+                }
+            },
+            get : function(key,asJSON = true) {
+                // Gets key from local storage, always parsing the JSON unless stated otherwise
+                try {
+                    if (Array.isArray(key)) {
+                        // If key is an array, support mass get of local storage values
+                        return key.map((k)=>{
+                            return {"key":k,"value":this.get(k)};
+                        }).filter((x)=>x);
+                    }
+                    return asJSON ? JSON.parse(this.ls.getItem(key)) : this.ls.getItem(key);
+                }
+                catch (e) {
+                    this.throwError(`An error has occurred: ${e}`);
+                    return false;
+                }
+            },
+            getAll : function(asJSON = true) {
+                try {
+                    let return_array = [];
+                    for (let idx in this.ls) {
+                        if (idx=="key" || idx=="getItem" || idx=="setItem" || idx=="removeItem" || idx=="clear" || idx=="length") continue;
+                        return_array.push({"key":idx,"value":asJSON ? JSON.parse(this.ls[idx]) : this.ls[idx]});
+                    }
+                    return return_array;
+                }
+                catch (e) {
+                    this.throwError(`An error has occurred: ${e}`);
+                    return false;
+                }
+            },
+            deleteAll : function() {
+                try {
+                    this.ls.clear();
+                    return true;
+                }
+                catch (e) {
+                    this.throwError(`An error has occurred: ${e}`);
+                    return false;
+                }
             }
         }
     }
