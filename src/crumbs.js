@@ -6,6 +6,24 @@
  */
 const crumbs = function () {
     return {
+        debug: false,
+        setDebug: function(isDebug) {
+            try {
+                this.debug = isDebug;
+            } catch (e) {
+                throwError(`An error has occurred: ${e}`);
+            }
+        },
+        isLsAvailable: function() {
+            let test = 'test';
+            try {
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        },
         throwError: function (err) {
             console.error(err);
         },
@@ -142,6 +160,10 @@ const crumbs = function () {
             ls: window.localStorage,
             // Shorter name, just for ease of use
             set: function (key, value) {
+                // If localstorage is not available, fall back to using cookies
+                if (!isLsAvailable) {
+                    crumbs.set(key, value)
+                }
                 // Set a key-value pair to the local storage
                 try {
                     if (Array.isArray(key)) {
