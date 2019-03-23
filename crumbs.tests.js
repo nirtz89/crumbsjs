@@ -62,3 +62,10 @@ test('Set a few local storage keys and values from an object', () => {
     ]);
     expect(crumbs.ls.getAll()).toHaveLength(3);
 });
+
+test('check fallback when LS is not working', () => {
+    // Alter the isLsAvailable function to emulate LS not being available
+    crumbs.isLsAvailable = () => false;
+    crumbs.ls.set("Roy","Samuel");
+    expect(crumbs.get("Roy")).toBe("Samuel");
+})
