@@ -83,6 +83,7 @@ crumbs.delete(my_cookies); // => true
 * Delete local storage keys easily
 * Display a cookie or a local storage key value
 * Display all cookies or local storage keys in a key-value easy to read object
+* Fallback to cookies when localstorage is not available (Safari private browsing)
 
 
 ## Methods

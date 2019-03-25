@@ -1,6 +1,6 @@
 {
   "name": "crumbsjs",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "A lightweight, intuitive, Vanilla ES6 fueled JS cookie library",
   "main": "index.js",
   "dependencies": {
