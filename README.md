@@ -15,7 +15,7 @@ crumbs.ls.set("Operating System","Win10") // => true
 
 ### Adding a single cookie that will expire in 7 days for a specific path
 ```javascript
-// the "expires" parameter is capable of taking a number, and will default as days.
+// The "expires" parameter is capable of taking a number, and will default as days.
 crumbs.set("Name","Roy Azaeev",{type:"day",value:7},"/crumbsjs"); // => true
 ```
 
