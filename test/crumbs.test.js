@@ -11,7 +11,7 @@ const crumbs = function () {
             try {
                 this.debug = isDebug;
             } catch (e) {
-                throwError(err);
+                this.throwError(e);
             }
         },
         isLsAvailable: function() {
