@@ -42,6 +42,12 @@ test('Create a few cookies from object', () => {
     expect(crumbs.getAll()).toHaveLength(2);
 })
 
+test('Check cookie object failure', () => {
+    crumbs.deleteAll();
+    crumbs.set("Name","Roy Azaeev",{type:"days",value:7},"/crumbsjs");
+    expect(crumbs.getAll()).toBe(false);
+})
+
 test('Set local storage key and value', () => {
     crumbs.ls.set("Nir","Tzezana");
     expect(crumbs.ls.get("Nir")).toEqual("Tzezana");

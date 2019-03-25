@@ -1,5 +1,5 @@
 /*!
- * CrumbsJS v0.1.0
+ * CrumbsJS v0.1.1
  * https://github.com/nirtz89/crumbsjs
  *
  * Copyright 2018, Nir Tzezana

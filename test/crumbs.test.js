@@ -1,5 +1,5 @@
 /*!
- * CrumbsJS v0.1.0
+ * CrumbsJS v0.1.1
  * https://github.com/nirtz89/crumbsjs
  *
  * Copyright 2018, Nir Tzezana
@@ -297,6 +297,12 @@ test('Create a few cookies from object', () => {
 
     crumbs.set(my_cookies);
     expect(crumbs.getAll()).toHaveLength(2);
+})
+
+test('Check cookie object failure', () => {
+    crumbs.deleteAll();
+    crumbs.set("Name","Roy Azaeev",{type:"days",value:7},"/crumbsjs");
+    expect(crumbs.getAll()).toBe(false);
 })
 
 test('Set local storage key and value', () => {
