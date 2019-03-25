@@ -24,8 +24,8 @@ const crumbs = function () {
                 return false;
             }
         },
-        throwError: function (err) {
-            console.error(`An error has occurred: ${err}`);
+        throwError: function (err,type="error") {
+            console[type](`[crumbsJS] An error has occurred: ${err}`);
         },
         set: function (name, value, expires, domain) {
             // Set a cookie, expires and domain are optional parameters
@@ -100,7 +100,7 @@ const crumbs = function () {
                     var c = c.split("=");
                     return c[0] === name ? 1 : 0;
                 });
-                return returned_cookie.length > 0 ? returned_cookie[0].split("=")[1] : false;
+                return returned_cookie.length > 0 ? returned_cookie[0].split("=")[1] : null;
             } catch (e) {
                 this.throwError(e);
                 return false;
@@ -154,17 +154,17 @@ const crumbs = function () {
         },
         ls: {
             // Local storage portion of the plugin
-            throwError: (e) => {
+            throwError: (e,type="error") => {
                 // Refer back to the original throwError function, DRY
-                crumbs.throwError(e)
+                crumbs.throwError(e,type)
             },
             ls: window.localStorage,
             // Shorter name, just for ease of use
             set: function (key, value) {
                 // If localstorage is not available, fall back to using cookies
                 if (!crumbs.isLsAvailable()) {
-                    crumbs.set(key, value);
-                    return true;
+                    this.throwError("Local Storage is not available, action was completed using cookies","warn");
+                    return crumbs.set(key, value);
                 }
                 // Set a key-value pair to the local storage
                 try {
@@ -187,6 +187,11 @@ const crumbs = function () {
             },
             get: function (key, asJSON = true) {
                 // Gets key from local storage, always parsing the JSON unless stated otherwise
+                // If localstorage is not available, fall back to using cookies
+                if (!crumbs.isLsAvailable()) {
+                    this.throwError("Local Storage is not available, action was completed using cookies","warn");
+                    return crumbs.get(key);
+                }
                 try {
                     if (Array.isArray(key)) {
                         // If key is an array, support mass get of local storage values
@@ -201,6 +206,11 @@ const crumbs = function () {
                 }
             },
             getAll: function (asJSON = true) {
+                // If localstorage is not available, fall back to using cookies
+                if (!crumbs.isLsAvailable()) {
+                    this.throwError("Local Storage is not available, action was completed using cookies");
+                    return crumbs.getAll();
+                }                
                 try {
                     let return_array = [];
                     for (let idx in this.ls) {
@@ -214,6 +224,11 @@ const crumbs = function () {
                 }
             },
             delete: function (key) {
+                // If localstorage is not available, fall back to using cookies
+                if (!crumbs.isLsAvailable()) {
+                    this.throwError("Local Storage is not available, action was aborted");
+                    return false;
+                }
                 try {
                     this.ls.removeItem(key);
                     return true;
@@ -223,6 +238,11 @@ const crumbs = function () {
                 }
             },
             deleteAll: function () {
+                // If localstorage is not available, fall back to using cookies
+                if (!crumbs.isLsAvailable()) {
+                    this.throwError("Local Storage is not available, action was aborted");
+                    return false;
+                }
                 try {
                     this.ls.clear();
                     return true;
@@ -300,9 +320,16 @@ test('Set a few local storage keys and values from an object', () => {
     expect(crumbs.ls.getAll()).toHaveLength(3);
 });
 
-test('check fallback when LS is not working', () => {
+test('Check fallback when LS is not working', () => {
     // Alter the isLsAvailable function to emulate LS not being available
+    crumbs.deleteAll();
+    crumbs.ls.deleteAll();
     crumbs.isLsAvailable = () => false;
     crumbs.ls.set("Roy","Samuel");
     expect(crumbs.get("Roy")).toBe("Samuel");
+});
+
+test('Check aborted action when trying to delete a LS when it is not available', () => {
+    // No need to set isLsAvailable to false, since it's already false from the last test
+    expect(crumbs.ls.delete("Roy")).toBe(false);
 })
