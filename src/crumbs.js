@@ -1,13 +1,31 @@
 /*!
- * CrumbsJS v0.0.2
+ * CrumbsJS v0.0.4
  * https://github.com/nirtz89/crumbsjs
  *
  * Copyright 2018, Nir Tzezana
  */
 const crumbs = function () {
     return {
-        throwError: function (err) {
-            console.error(err);
+        debug: false,
+        setDebug: function(isDebug) {
+            try {
+                this.debug = isDebug;
+            } catch (e) {
+                throwError(err);
+            }
+        },
+        isLsAvailable: function() {
+            let test = 'test';
+            try {
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                return true;
+            } catch (e) {
+                return false;
+            }
+        },
+        throwError: function (err,type="error") {
+            console[type](`[crumbsJS] An error has occurred: ${err}`);
         },
         set: function (name, value, expires, domain) {
             // Set a cookie, expires and domain are optional parameters
@@ -62,13 +80,14 @@ const crumbs = function () {
                     }
                     d.setTime(d.getTime() + (expires * time));
                     d.toUTCString();
-                    cookie_expires = `expires=${d};`;
+                    cookie_expires = `expires=${d}`;
                 }
                 cookie_domain = domain != undefined ? `path=${domain};` : domain;
-                document.cookie = `${name}=${value};${cookie_expires};${cookie_domain}`;
+                let cookie_to_be_added = ''+`${name}=${value};${cookie_expires}ף${cookie_domain}`;
+                document.cookie = cookie_to_be_added;
                 return true;
             } catch (e) {
-                this.throwError(`An error has occurred: ${e}`);
+                this.throwError(e);
                 return false;
             }
         },
@@ -81,9 +100,9 @@ const crumbs = function () {
                     var c = c.split("=");
                     return c[0] === name ? 1 : 0;
                 });
-                return returned_cookie.length > 0 ? returned_cookie[0].split("=")[1] : false;
+                return returned_cookie.length > 0 ? returned_cookie[0].split("=")[1] : null;
             } catch (e) {
-                this.throwError(`An error has occurred: ${e}`);
+                this.throwError(e);
                 return false;
             }
         },
@@ -97,9 +116,9 @@ const crumbs = function () {
                     return {"name": c[0], "value": c[1]};
                 }) : false;
             } catch (e) {
-                this.throwError(`An error has occurred: ${e}`);
+                this.throwError(e);
                 return false;
-            }
+            } 
         },
         delete: function (name) {
             // Deletes a cookie by its name
@@ -116,7 +135,7 @@ const crumbs = function () {
                 document.cookie = `${name}=''; expires=Thu, 01 Jan 1970 00:00:01 GMT`;
                 return true;
             } catch (e) {
-                this.throwError(`An error has occurred: ${e}`);
+                this.throwError(e);
             }
         },
         deleteAll: function () {
@@ -130,18 +149,23 @@ const crumbs = function () {
                     });
                 return true;
             } catch (e) {
-                this.throwError(`An error has occurred: ${e}`);
+                this.throwError(e);
             }
         },
         ls: {
             // Local storage portion of the plugin
-            throwError: (e) => {
+            throwError: (e,type="error") => {
                 // Refer back to the original throwError function, DRY
-                crumbs.throwError(e)
+                crumbs.throwError(e,type)
             },
             ls: window.localStorage,
             // Shorter name, just for ease of use
             set: function (key, value) {
+                // If localstorage is not available, fall back to using cookies
+                if (!crumbs.isLsAvailable()) {
+                    this.throwError("Local Storage is not available, action was completed using cookies","warn");
+                    return crumbs.set(key, value);
+                }
                 // Set a key-value pair to the local storage
                 try {
                     if (Array.isArray(key)) {
@@ -157,12 +181,17 @@ const crumbs = function () {
                     this.ls.setItem(key, JSON.stringify(value));
                     return true;
                 } catch (e) {
-                    this.throwError(`An error has occurred: ${e}`);
+                    this.throwError(e);
                     return false;
                 }
             },
             get: function (key, asJSON = true) {
                 // Gets key from local storage, always parsing the JSON unless stated otherwise
+                // If localstorage is not available, fall back to using cookies
+                if (!crumbs.isLsAvailable()) {
+                    this.throwError("Local Storage is not available, action was completed using cookies","warn");
+                    return crumbs.get(key);
+                }
                 try {
                     if (Array.isArray(key)) {
                         // If key is an array, support mass get of local storage values
@@ -172,11 +201,16 @@ const crumbs = function () {
                     }
                     return asJSON ? JSON.parse(this.ls.getItem(key)) : this.ls.getItem(key);
                 } catch (e) {
-                    this.throwError(`An error has occurred: ${e}`);
+                    this.throwError(e);
                     return false;
                 }
             },
             getAll: function (asJSON = true) {
+                // If localstorage is not available, fall back to using cookies
+                if (!crumbs.isLsAvailable()) {
+                    this.throwError("Local Storage is not available, action was completed using cookies");
+                    return crumbs.getAll();
+                }                
                 try {
                     let return_array = [];
                     for (let idx in this.ls) {
@@ -185,25 +219,35 @@ const crumbs = function () {
                     }
                     return return_array;
                 } catch (e) {
-                    this.throwError(`An error has occurred: ${e}`);
+                    this.throwError(e);
                     return false;
                 }
             },
             delete: function (key) {
+                // If localstorage is not available, fall back to using cookies
+                if (!crumbs.isLsAvailable()) {
+                    this.throwError("Local Storage is not available, action was aborted");
+                    return false;
+                }
                 try {
                     this.ls.removeItem(key);
                     return true;
                 } catch (e) {
-                    this.throwError(`An error has occurred: ${e}`);
+                    this.throwError(e);
                     return false;
                 }
             },
             deleteAll: function () {
+                // If localstorage is not available, fall back to using cookies
+                if (!crumbs.isLsAvailable()) {
+                    this.throwError("Local Storage is not available, action was aborted");
+                    return false;
+                }
                 try {
                     this.ls.clear();
                     return true;
                 } catch (e) {
-                    this.throwError(`An error has occurred: ${e}`);
+                    this.throwError(e);
                     return false;
                 }
             }

@@ -62,3 +62,17 @@ test('Set a few local storage keys and values from an object', () => {
     ]);
     expect(crumbs.ls.getAll()).toHaveLength(3);
 });
+
+test('Check fallback when LS is not working', () => {
+    // Alter the isLsAvailable function to emulate LS not being available
+    crumbs.deleteAll();
+    crumbs.ls.deleteAll();
+    crumbs.isLsAvailable = () => false;
+    crumbs.ls.set("Roy","Samuel");
+    expect(crumbs.get("Roy")).toBe("Samuel");
+});
+
+test('Check aborted action when trying to delete a LS when it is not available', () => {
+    // No need to set isLsAvailable to false, since it's already false from the last test
+    expect(crumbs.ls.delete("Roy")).toBe(false);
+})
