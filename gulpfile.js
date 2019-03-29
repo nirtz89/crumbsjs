@@ -1,5 +1,5 @@
-const gulp = require('gulp'); 
-const minify = require('gulp-minify'); 
+const gulp = require('gulp');
+const minify = require('gulp-minify');
 const concat = require('gulp-concat');
 const gulpRollup = require('gulp-rollup');
 const babel = require('rollup-plugin-babel');
@@ -16,28 +16,28 @@ const banner =
   * Licensed under MIT (https://github.com/nirtz89/crumbsjs/blob/master/LICENSE)
   */`;
 
-gulp.task('compress', function() {
-  gulp.src(['src/*.js'])
-    .pipe(gulpRollup({
-      input: './src/crumbs.js',
-      output: {
-        banner,
-        file: './dist/crumbs.js',
-        format: 'umd',
-        name: 'crumbs'
-      },
-      plugins: [
-        babel({
-          exclude: 'node_modules/**'
-        })
-      ]
-    }))
-    .pipe(minify())
-    .pipe(gulp.dest('dist'))
+gulp.task('compress', function () {
+    gulp.src(['src/*.js'])
+        .pipe(gulpRollup({
+            input: './src/crumbs.js',
+            output: {
+                banner,
+                file: './dist/crumbs.js',
+                format: 'umd',
+                name: 'crumbs'
+            },
+            plugins: [
+                babel({
+                    exclude: 'node_modules/**'
+                })
+            ]
+        }))
+        .pipe(minify())
+        .pipe(gulp.dest('dist'))
 });
 
-gulp.task('stream', function() {
-  return gulp.watch(['src/crumbs.js'], function() {
-      gulp.start('compress');
-  });
+gulp.task('stream', function () {
+    return gulp.watch(['src/crumbs.js'], function () {
+        gulp.start('compress');
+    });
 });

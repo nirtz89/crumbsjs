@@ -1,31 +1,31 @@
 test('Create a few cookies', () => {
-    crumbs.set("name","Nir");
-    crumbs.set("lname","Tzezana");
+    crumbs.set("name", "Nir");
+    crumbs.set("lname", "Tzezana");
     expect(crumbs.getAll()).toHaveLength(2);
 });
 
 test('Create a single cookie', () => {
-    crumbs.set("name","Nir");
+    crumbs.set("name", "Nir");
     expect(crumbs.get("name")).toBe("Nir");
 });
 
 test('Delete a single cookie', () => {
-    crumbs.set("name","Nir");
+    crumbs.set("name", "Nir");
     crumbs.delete("name");
     expect(crumbs.get("name")).toBeFalsy;
 })
 
 test('Delete multiple cookies', () => {
-    crumbs.set("name","Nir");
-    crumbs.set("age",29);
-    crumbs.delete(["name","age"]);
+    crumbs.set("name", "Nir");
+    crumbs.set("age", 29);
+    crumbs.delete(["name", "age"]);
     expect(crumbs.getAll()).toBeFalsy;
 })
 
 test('Delete all cookies', () => {
     let my_cookies = [];
-    my_cookies.push({"name":"Operating System","value":"Win10"});
-    my_cookies.push({"name":"Age","value":"29"});
+    my_cookies.push({"name": "Operating System", "value": "Win10"});
+    my_cookies.push({"name": "Age", "value": "29"});
 
     crumbs.set(my_cookies);
     crumbs.deleteAll();
@@ -35,8 +35,8 @@ test('Delete all cookies', () => {
 test('Create a few cookies from object', () => {
     crumbs.deleteAll();
     let my_cookies = [];
-    my_cookies.push({"name":"Operating System","value":"Win10"});
-    my_cookies.push({"name":"Age","value":"29"});
+    my_cookies.push({"name": "Operating System", "value": "Win10"});
+    my_cookies.push({"name": "Age", "value": "29"});
 
     crumbs.set(my_cookies);
     expect(crumbs.getAll()).toHaveLength(2);
@@ -44,12 +44,12 @@ test('Create a few cookies from object', () => {
 
 test('Check cookie object failure', () => {
     crumbs.deleteAll();
-    crumbs.set("Name","Roy Azaeev",{type:"days",value:7},"/crumbsjs");
+    crumbs.set("Name", "Roy Azaeev", {type: "days", value: 7}, "/crumbsjs");
     expect(crumbs.getAll()).toBe(false);
 })
 
 test('Set local storage key and value', () => {
-    crumbs.ls.set("Nir","Tzezana");
+    crumbs.ls.set("Nir", "Tzezana");
     expect(crumbs.ls.get("Nir")).toEqual("Tzezana");
 })
 
@@ -57,13 +57,13 @@ test('Set a few local storage keys and values from an object', () => {
     crumbs.ls.deleteAll();
     crumbs.ls.set([
         {
-            "key":"Nir","value":"Tzezana"
+            "key": "Nir", "value": "Tzezana"
         },
         {
-            "key":"Age","value":29,
+            "key": "Age", "value": 29,
         },
         {
-            "key":"Daft","value":"Punk"
+            "key": "Daft", "value": "Punk"
         }
     ]);
     expect(crumbs.ls.getAll()).toHaveLength(3);
@@ -74,7 +74,7 @@ test('Check fallback when LS is not working', () => {
     crumbs.deleteAll();
     crumbs.ls.deleteAll();
     crumbs.isLsAvailable = () => false;
-    crumbs.ls.set("Roy","Samuel");
+    crumbs.ls.set("Roy", "Samuel");
     expect(crumbs.get("Roy")).toBe("Samuel");
 });
 
