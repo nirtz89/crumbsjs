@@ -1,5 +1,7 @@
 ## 🍪 CrumbsJS 🍪
 
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com/)
+
 A lightweight, intuitive, vanilla ES6 fueled JS cookie and **local storage** library.
 
 ## Quick Start
