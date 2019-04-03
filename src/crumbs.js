@@ -1,3 +1,15 @@
+const isLsAvailable = (() => {
+    const test = 'test';
+
+    try {
+        localStorage.setItem(test, test);
+        localStorage.removeItem(test);
+        return true;
+    } catch (e) {
+        return false;
+    }
+})();
+
 const crumbs = {
     debug: false,
     setDebug(isDebug) {
@@ -8,14 +20,7 @@ const crumbs = {
         }
     },
     isLsAvailable() {
-        const test = 'test';
-        try {
-            localStorage.setItem(test, test);
-            localStorage.removeItem(test);
-            return true;
-        } catch (e) {
-            return false;
-        }
+        return isLsAvailable;
     },
     throwError(err,type="error") {
         console[type](`[crumbsJS] An error has occurred: ${err}`);
@@ -158,7 +163,7 @@ const crumbs = {
         // Shorter name, just for ease of use
         set(key, value) {
             // If localstorage is not available, fall back to using cookies
-            if (!crumbs.isLsAvailable()) {
+            if (!crumbs.isLsAvailable) {
                 this.throwError("Local Storage is not available, action was completed using cookies","warn");
                 return crumbs.set(key, value);
             }
@@ -184,7 +189,7 @@ const crumbs = {
         get(key, asJSON = true) {
             // Gets key from local storage, always parsing the JSON unless stated otherwise
             // If localstorage is not available, fall back to using cookies
-            if (!crumbs.isLsAvailable()) {
+            if (!crumbs.isLsAvailable) {
                 this.throwError("Local Storage is not available, action was completed using cookies","warn");
                 return crumbs.get(key);
             }
@@ -203,7 +208,7 @@ const crumbs = {
         },
         getAll(asJSON = true) {
             // If localstorage is not available, fall back to using cookies
-            if (!crumbs.isLsAvailable()) {
+            if (!crumbs.isLsAvailable) {
                 this.throwError("Local Storage is not available, action was completed using cookies");
                 return crumbs.getAll();
             }                
@@ -221,7 +226,7 @@ const crumbs = {
         },
         delete(key) {
             // If localstorage is not available, fall back to using cookies
-            if (!crumbs.isLsAvailable()) {
+            if (!crumbs.isLsAvailable) {
                 this.throwError("Local Storage is not available, action was aborted");
                 return false;
             }
@@ -235,7 +240,7 @@ const crumbs = {
         },
         deleteAll() {
             // If localstorage is not available, fall back to using cookies
-            if (!crumbs.isLsAvailable()) {
+            if (!crumbs.isLsAvailable) {
                 this.throwError("Local Storage is not available, action was aborted");
                 return false;
             }
