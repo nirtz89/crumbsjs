@@ -118,6 +118,14 @@ Deletes all cookies.
 
 ### Install On your local PC
 
+#### Using a bundler ?
+
+You can import CrumbsJS like that
+
+```js
+import crumbs from 'crumbsjs';
+```
+
 #### Download Sources
 
 use npm
