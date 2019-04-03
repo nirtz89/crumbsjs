@@ -36,15 +36,8 @@ gulp.task('compress', function() {
     .pipe(gulp.dest('dist'))
 });
 
-gulp.task('test', function() {
-  return gulp.src(['./src/crumbs.js', 'crumbs.tests.js'])
-    .pipe(concat('crumbs.test.js'))
-    .pipe(gulp.dest('./test/'));
-});
-
 gulp.task('stream', function() {
-  return gulp.watch(['crumbs.tests.js','src/crumbs.js'], function() {
-      gulp.start('test');
+  return gulp.watch(['src/crumbs.js'], function() {
       gulp.start('compress');
   });
 });
