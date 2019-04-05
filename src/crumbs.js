@@ -1,13 +1,13 @@
 const crumbs = {
     debug: false,
-    setDebug: function(isDebug) {
+    setDebug: function (isDebug) {
         try {
             this.debug = isDebug;
         } catch (e) {
             this.throwError(e);
         }
     },
-    isLsAvailable: function() {
+    isLsAvailable: function () {
         let test = 'test';
         try {
             localStorage.setItem(test, test);
@@ -17,7 +17,7 @@ const crumbs = {
             return false;
         }
     },
-    throwError: function (err,type="error") {
+    throwError: function (err, type = "error") {
         console[type](`[crumbsJS] An error has occurred: ${err}`);
     },
     set: function (name, value, expires, domain) {
@@ -76,7 +76,7 @@ const crumbs = {
                 cookie_expires = `expires=${d}`;
             }
             cookie_domain = domain != undefined ? `path=${domain};` : domain;
-            let cookie_to_be_added = ''+`${name}=${value};${cookie_expires}ף${cookie_domain}`;
+            let cookie_to_be_added = '' + `${name}=${value};${cookie_expires}ף${cookie_domain}`;
             document.cookie = cookie_to_be_added;
             return true;
         } catch (e) {
@@ -111,7 +111,7 @@ const crumbs = {
         } catch (e) {
             this.throwError(e);
             return false;
-        } 
+        }
     },
     delete: function (name) {
         // Deletes a cookie by its name
@@ -147,16 +147,16 @@ const crumbs = {
     },
     ls: {
         // Local storage portion of the plugin
-        throwError: (e,type="error") => {
+        throwError: (e, type = "error") => {
             // Refer back to the original throwError function, DRY
-            crumbs.throwError(e,type)
+            crumbs.throwError(e, type)
         },
         ls: window.localStorage,
         // Shorter name, just for ease of use
         set: function (key, value) {
             // If localstorage is not available, fall back to using cookies
             if (!crumbs.isLsAvailable()) {
-                this.throwError("Local Storage is not available, action was completed using cookies","warn");
+                this.throwError("Local Storage is not available, action was completed using cookies", "warn");
                 return crumbs.set(key, value);
             }
             // Set a key-value pair to the local storage
@@ -182,7 +182,7 @@ const crumbs = {
             // Gets key from local storage, always parsing the JSON unless stated otherwise
             // If localstorage is not available, fall back to using cookies
             if (!crumbs.isLsAvailable()) {
-                this.throwError("Local Storage is not available, action was completed using cookies","warn");
+                this.throwError("Local Storage is not available, action was completed using cookies", "warn");
                 return crumbs.get(key);
             }
             try {
@@ -203,7 +203,7 @@ const crumbs = {
             if (!crumbs.isLsAvailable()) {
                 this.throwError("Local Storage is not available, action was completed using cookies");
                 return crumbs.getAll();
-            }                
+            }
             try {
                 let return_array = [];
                 for (let idx in this.ls) {

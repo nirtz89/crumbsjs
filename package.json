@@ -1,46 +1,46 @@
 {
-  "name": "crumbsjs",
-  "version": "0.1.1",
-  "description": "A lightweight, intuitive, Vanilla ES6 fueled JS cookie library",
-  "main": "dist/crumbs.js",
-  "dependencies": {
-    "lodash": "^1.3.1",
-    "natives": "^1.1.6"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "gulp": "^3.9.1",
-    "gulp-concat": "^2.6.1",
-    "gulp-minify": "^3.1.0",
-    "gulp-rollup": "^2.16.2",
-    "gulp-watch": "^5.0.1",
-    "jest": "^24.6.0",
-    "rollup": "^1.7.4",
-    "rollup-plugin-babel": "^4.3.2"
-  },
-  "scripts": {
-    "pretest": "gulp compress",
-    "test": "jest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nirtz89/crumbsjs.git"
-  },
-  "keywords": [
-    "jquery-plugin",
-    "cookie",
-    "cookies",
-    "crumbs",
-    "crumble",
-    "browser",
-    "client",
-    "crumbsJS"
-  ],
-  "author": "Nir Tzezana",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/nirtz89/crumbsjs/issues"
-  },
-  "homepage": "https://github.com/nirtz89/crumbsjs#readme"
+    "name": "crumbsjs",
+    "version": "0.1.1",
+    "description": "A lightweight, intuitive, Vanilla ES6 fueled JS cookie library",
+    "main": "dist/crumbs.js",
+    "dependencies": {
+        "lodash": "^1.3.1",
+        "natives": "^1.1.6"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.4.0",
+        "@babel/preset-env": "^7.4.2",
+        "gulp": "^3.9.1",
+        "gulp-concat": "^2.6.1",
+        "gulp-minify": "^3.1.0",
+        "gulp-rollup": "^2.16.2",
+        "gulp-watch": "^5.0.1",
+        "jest": "^24.6.0",
+        "rollup": "^1.7.4",
+        "rollup-plugin-babel": "^4.3.2"
+    },
+    "scripts": {
+        "pretest": "gulp compress",
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/nirtz89/crumbsjs.git"
+    },
+    "keywords": [
+        "jquery-plugin",
+        "cookie",
+        "cookies",
+        "crumbs",
+        "crumble",
+        "browser",
+        "client",
+        "crumbsJS"
+    ],
+    "author": "Nir Tzezana",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/nirtz89/crumbsjs/issues"
+    },
+    "homepage": "https://github.com/nirtz89/crumbsjs#readme"
 }
