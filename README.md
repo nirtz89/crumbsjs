@@ -21,7 +21,7 @@ crumbs.set("Name","Roy Azaeev",{type:"day",value:7},"/crumbsjs"); // => true
 
 ### Adding a few cookies at once
 ```javascript
-let my_cookies = [];
+const my_cookies = [];
 my_cookies.push({name:"Operating System",value:"Win10"});
 my_cookies.push({name:"Age",value:"29"});
 
@@ -30,7 +30,7 @@ crumbs.set(my_cookies); // => [{name:"Operating System",value:"Win10"},{name:"Ag
 
 ### Adding a few local storage keys at once
 ```javascript
-let my_localstorage_array = [];
+const my_localstorage_array = [];
 my_localstorage_array.push({"key":"Operating System","value":"Win10"});
 my_localstorage_array.push({"key":"Age","value":"29"});
 
@@ -66,7 +66,7 @@ crumbs.ls.delete("Operating system"); // => true
 
 ### Delete a few cookies at once
 ```javascript
-let my_cookies = [];
+const my_cookies = [];
 my_cookies.push("Operating system");
 my_cookies.push("Age");
 
@@ -76,6 +76,7 @@ crumbs.delete(my_cookies); // => true
 ## Features
 
 * **NO DEPENDENCIES** - Yup, no jQuery.
+* ES5 compatible.
 * Tested, using Jest.
 * Add one or multiple cookies or local storage keys at once
 * Update cookies or local storage keys using the `set` method
@@ -139,3 +140,12 @@ use git
 ```bash
 git clone https://github.com/nirtz89/crumbsjs.git
 ```
+
+## What's next
+* IndexDB support
+
+## Contributers
+
+![alt text](https://avatars3.githubusercontent.com/u/1689750?s=60&v=4 "Johann-S") ![alt text](https://avatars1.githubusercontent.com/u/15731984?s=60&v=4 "Swiftmatt") ![alt text](https://avatars1.githubusercontent.com/u/12184996?s=60&v=4 "4marcellefter")
+
+Thank you for making the library better!
