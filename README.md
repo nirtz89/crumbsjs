@@ -143,6 +143,7 @@ git clone https://github.com/nirtz89/crumbsjs.git
 
 ## What's next
 * IndexDB support
+* Session storage support
 
 ## Contributers
 
