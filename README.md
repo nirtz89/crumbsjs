@@ -90,29 +90,29 @@ crumbs.delete(my_cookies); // => true
 ## Methods
 
 ### set(name, value, [expires], [domain])
-Sets one or more cookies.
+Sets one or more cookies or local storage keys.
 > name can be set as an array of key-pair objects in the format of {name:"Age",value:29} for mass cookie set
 
 ---
 
 ### get(name)
-Gets a cookie value by its name.
+Gets a cookie or a local storage value by its name.
 
 ---
 
 ### getAll()
-Gets all the cookies in a key-pair object array.
+Gets all the cookies or local storage keys in a key-pair object array.
 
 ---
 
 ### delete(name)
-Deletes a cookie by its name.
+Deletes a cookie or local storage key by its name.
 
 > name can be set as an array of strings for mass delete of cookies
 ---
 
 ### deleteAll()
-Deletes all cookies.
+Deletes all cookies or local storage keys.
 
 
 ## Getting Started
