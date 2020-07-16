@@ -4,7 +4,7 @@
   "description": "A lightweight, intuitive, Vanilla ES6 fueled JS cookie library",
   "main": "dist/crumbs.js",
   "dependencies": {
-    "lodash": "^1.3.1",
+    "lodash": "^4.17.19",
     "natives": "^1.1.6"
   },
   "devDependencies": {
