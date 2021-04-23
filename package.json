@@ -8,19 +8,18 @@
     "natives": "^1.1.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "gulp": "^3.9.1",
+    "@babel/core": "^7.13.16",
+    "@babel/preset-env": "^7.13.15",
+    "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-minify": "^3.1.0",
-    "gulp-rollup": "^2.16.2",
+    "gulp-rollup": "^2.17.0",
     "gulp-watch": "^5.0.1",
-    "jest": "^24.6.0",
-    "rollup": "^1.7.4",
-    "rollup-plugin-babel": "^4.3.2"
+    "jest": "^24.9.0",
+    "rollup": "^1.32.1",
+    "rollup-plugin-babel": "^4.4.0"
   },
   "scripts": {
-    "pretest": "gulp compress",
     "test": "jest"
   },
   "repository": {

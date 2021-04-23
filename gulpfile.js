@@ -16,7 +16,7 @@ const banner =
   * Licensed under MIT (https://github.com/nirtz89/crumbsjs/blob/master/LICENSE)
   */`;
 
-gulp.task('compress', function() {
+gulp.task('compress', function(done) {
   gulp.src(['src/*.js'])
     .pipe(gulpRollup({
       input: './src/crumbs.js',
@@ -34,10 +34,12 @@ gulp.task('compress', function() {
     }))
     .pipe(minify())
     .pipe(gulp.dest('dist'))
+    done();
 });
 
-gulp.task('stream', function() {
+gulp.task('stream', function(done) {
   return gulp.watch(['src/crumbs.js'], function() {
       gulp.start('compress');
+      done();
   });
 });
