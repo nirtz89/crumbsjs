@@ -34,7 +34,7 @@ const my_localstorage_array = [];
 my_localstorage_array.push({"key":"Operating System","value":"Win10"});
 my_localstorage_array.push({"key":"Age","value":"29"});
 
-crumbs.set(my_localstorage_array); // => [{key:"Operating System",value:"Win10"},{key:"Age",value:"29"}]
+crumbs.ls.set(my_localstorage_array); // => [{key:"Operating System",value:"Win10"},{key:"Age",value:"29"}]
 ```
 
 ### Get a cookie or a local storage key value
