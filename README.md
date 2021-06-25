@@ -147,6 +147,6 @@ git clone https://github.com/nirtz89/crumbsjs.git
 
 ## Contributers
 
-![alt text](https://avatars3.githubusercontent.com/u/1689750?s=60&v=4 "Johann-S") ![alt text](https://avatars1.githubusercontent.com/u/15731984?s=60&v=4 "Swiftmatt") ![alt text](https://avatars1.githubusercontent.com/u/12184996?s=60&v=4 "4marcellefter")
+![alt text](https://avatars3.githubusercontent.com/u/1689750?s=60&v=4 "Johann-S") ![alt text](https://avatars1.githubusercontent.com/u/15731984?s=60&v=4 "Swiftmatt") ![alt text](https://avatars1.githubusercontent.com/u/12184996?s=60&v=4 "4marcellefter") ![alt text](https://avatars.githubusercontent.com/u/9419680?v=4 "pablogiralt")
 
 Thank you for making the library better!
