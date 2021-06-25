@@ -76,7 +76,7 @@ const crumbs = {
                 cookie_expires = `expires=${d}`;
             }
             cookie_domain = domain != undefined ? `path=${domain};` : domain;
-            let cookie_to_be_added = ''+`${name}=${value};${cookie_expires}ף${cookie_domain}`;
+            let cookie_to_be_added = ''+`${name}=${value};${cookie_expires};${cookie_domain}`;
             document.cookie = cookie_to_be_added;
             return true;
         } catch (e) {
