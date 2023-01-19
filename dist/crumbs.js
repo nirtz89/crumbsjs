@@ -1,7 +1,7 @@
 /*!
   * CrumbsJS v0.2.1
   * https://github.com/nirtz89/crumbsjs#readme
-  * Copyright 2018 - 2021, Nir Tzezana
+  * Copyright 2018 - 2023, Nir Tzezana
   * Licensed under MIT (https://github.com/nirtz89/crumbsjs/blob/master/LICENSE)
   */
 (function (global, factory) {
@@ -104,7 +104,7 @@
           }
 
           cookie_domain = domain != undefined ? "path=" + domain + ";" : domain;
-          var cookie_to_be_added = '' + (name + "=" + value + ";" + cookie_expires + "\u05E3" + cookie_domain);
+          var cookie_to_be_added = '' + (name + "=" + value + ";" + cookie_expires + ";" + cookie_domain);
           document.cookie = cookie_to_be_added;
           return true;
         } catch (e) {
